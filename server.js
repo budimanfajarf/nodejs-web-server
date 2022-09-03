@@ -1,7 +1,8 @@
 const http = require('http');
 
 const requestListener = (request, response) => {
-    response.setHeader('Content-Type', 'text/html');
+    response.setHeader('Content-Type', 'application/json'); // Example standard property on header response
+    response.setHeader('X-Powered-By', 'NodeJS'); // Example NOT standard property on header response, recommend to add "X" before the property name, example: X-Custom-Property
     response.statusCode = 200;
 
     const { method, url } = request;
