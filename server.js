@@ -10,17 +10,23 @@ const requestListener = (request, response) => {
     if (url === '/') {
         if (method === 'GET') {
             response.statusCode = 200;
-            return response.end('<h1>Ini adalah homepage</h1>');
+            return response.end(JSON.stringify({
+                message: 'Ini adalah homepage',
+            }));
         }
 
         response.statusCode = 400;
-        return response.end(`<h1>Halaman tidak dapat diakses dengan ${method} request</h1>`);
+        return response.end(JSON.stringify({
+            message: `Halaman tidak dapat diakses dengan ${method} request`,
+        }));
     }
 
     if (url === '/about') {
         if (method === 'GET') {
             response.statusCode = 200;
-            return response.end('<h1>Halo! Ini adalah halaman about</h1>')
+            return response.end(JSON.stringify({
+                message: 'Halo! Ini adalah halaman about',
+            }));
         }
 
         if (method === 'POST') {
@@ -34,18 +40,24 @@ const requestListener = (request, response) => {
                 body = Buffer.concat(body).toString();
                 const { name } = JSON.parse(body);
                 response.statusCode = 200;
-                response.end(`<h1>Halo, ${name}! Ini adalah halaman about</h1>`);
+                response.end(JSON.stringify({
+                    message: `Halo, ${name}! Ini adalah halaman about`,
+                }));
             });
 
             return;
         }
 
         response.statusCode = 400;
-        return response.end(`<h1>Halaman tidak dapat diakses dengan ${method} request</h1>`);
+        return response.end(JSON.stringify({
+            message: `Halaman tidak dapat diakses dengan ${method} request`,
+        }));
     }
 
     response.statusCode = 404;
-    response.end('<h1>Halaman tidak ditemukan!</h1>');
+    response.end(JSON.stringify({
+        message: 'Halaman tidak ditemukan!',
+    }));
 }
 
 const server = http.createServer(requestListener);
